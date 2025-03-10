@@ -8,6 +8,9 @@ const config: Config = {
   ],
   theme: {
     extend: {
+      fontFamily: {
+        riot: ["var(--font-riot)"],
+      },
       colors: {
         background: "var(--background)",
         foreground: "var(--foreground)",

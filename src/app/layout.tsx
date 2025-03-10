@@ -6,6 +6,13 @@ const pretendard = localFont({
   src: "../public/fonts/PretendardVariable.woff2",
 });
 
+const riot = localFont({
+  src: "../public/fonts/RiotRegular.woff2",
+  weight: "400",
+  style: "normal",
+  variable: "--font-riot",
+});
+
 export const metadata: Metadata = {
   title: "Riot App",
   description:
@@ -19,7 +26,7 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="ko">
-      <body className={`${pretendard.className} antialiased`}>{children}</body>
+      <body className={`${pretendard.className} ${riot.variable} antialiased`}>{children}</body>
     </html>
   );
 }
