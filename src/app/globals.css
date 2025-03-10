@@ -16,6 +16,9 @@
   --dark-gold: #785a28;
 
   --hover-background: #8080804d;
+
+  -ms-overflow-style: none;
+  scrollbar-width: none;
 }
 
 @media (prefers-color-scheme: dark) {
