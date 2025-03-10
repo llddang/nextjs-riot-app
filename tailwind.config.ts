@@ -14,6 +14,15 @@ const config: Config = {
       colors: {
         background: "var(--background)",
         foreground: "var(--foreground)",
+
+        black: "var(--black)",
+        caption: "var(--caption)",
+        blue: "var(--blue)",
+        "dark-blue": "var(--dark-blue)",
+        red: "var(--red)",
+        gold: "var(--gold)",
+        "dark-gold": "var(--dark-gold)",
+        hover: "var(--hover-background)",
       },
     },
   },
