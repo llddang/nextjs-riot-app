@@ -36,3 +36,20 @@ body {
     text-wrap: balance;
   }
 }
+
+@layer components {
+  .hover-underline {
+    @apply inline-block align-middle relative transform shadow-sm;
+  }
+
+  .hover-underline::before {
+    content: "";
+    @apply absolute z-10 left-[51%] right-[51%] bottom-0 bg-red h-[3px] transition-[left,right] duration-300 ease-out;
+  }
+
+  .hover-underline:hover::before,
+  .hover-underline:focus::before,
+  .hover-underline:active::before {
+    @apply left-0 right-0;
+  }
+}
