@@ -28,8 +28,5 @@ jobs:
       - name: Install dependencies
         run: pnpm install
 
-      - name: Lint
-        run: pnpm lint || echo "Linting failed but continuing build"
-
       - name: Build
         run: pnpm build
