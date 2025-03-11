@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import localFont from "next/font/local";
 import "./globals.css";
+import Header from "@/components/layouts/header/header";
 
 const pretendard = localFont({
   src: "../public/fonts/PretendardVariable.woff2",
@@ -26,7 +27,12 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="ko">
-      <body className={`${pretendard.className} ${riot.variable} antialiased`}>{children}</body>
+      <body
+        className={`${pretendard.className} ${riot.variable} w-full overflow-x-hidden antialiased`}
+      >
+        <Header />
+        {children}
+      </body>
     </html>
   );
 }
