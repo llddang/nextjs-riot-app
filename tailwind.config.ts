@@ -1,3 +1,4 @@
+import breakpoint from "./src/constants/breakpoint.constant";
 import type { Config } from "tailwindcss";
 
 const config: Config = {
@@ -7,6 +8,13 @@ const config: Config = {
     "./src/app/**/*.{js,ts,jsx,tsx,mdx}",
   ],
   theme: {
+    screens: {
+      sm: `${breakpoint.SM}rem`,
+      md: `${breakpoint.MD}rem`,
+      lg: `${breakpoint.LG}rem`,
+      xl: `${breakpoint.XL}rem`,
+      "2xl": `${breakpoint["2XL"]}rem`,
+    },
     extend: {
       fontFamily: {
         riot: ["var(--font-riot)"],
