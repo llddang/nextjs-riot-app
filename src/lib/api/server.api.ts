@@ -9,6 +9,7 @@ import {
 import { Champion, ChampionOverall } from "@/types/champion.type";
 import { Version } from "@/types/common.type";
 import { Item } from "@/types/item.type";
+import { notFound } from "next/navigation";
 
 /**
  * 최신 API 버전의 모든 챔피언 정보를 배열 형태로 가져옵니다.
@@ -31,18 +32,22 @@ export async function fetchAllChampionsWithVersion(): Promise<
  * 최신 API 버전에서 특정 ID의 챔피언 상세 정보를 가져옵니다.
  *
  * @param {string} id - 조회할 챔피언의 고유 ID (예: "Aatrox")
- * @returns {Promise<ChampVersion<Champion>ion>} 해당 챔피언의 상세 정보
+ * @returns {Promise<Version<Champion>>} 해당 챔피언의 상세 정보
  * @throws {Error} API 요청 실패 또는 챔피언을 찾을 수 없을 때 오류가 발생할 수 있습니다.
  */
 export async function fetchChampionByIdWithVersion(
   id: string,
 ): Promise<Version<Champion>> {
-  const apiVersion = await fetchAPIVersion();
-  const champions = await fetchChampionById(apiVersion, id);
+  try {
+    const apiVersion = await fetchAPIVersion();
+    const champions = await fetchChampionById(apiVersion, id);
 
-  const champion = Object.values(champions)[0];
+    const champion = Object.values(champions)[0];
 
-  return { version: apiVersion, data: champion };
+    return { version: apiVersion, data: champion };
+  } catch (e) {
+    notFound();
+  }
 }
 
 /**
