@@ -7,7 +7,7 @@ import { ChampionOverall } from "@/types/champion.type";
  * @returns {Promise<ChampionOverall[]>} 챔피언들의 key 배열
  * @throws {Error} API 요청 실패 시 오류가 발생할 수 있습니다.
  */
-export async function fetchRotationChampion(): Promise<ChampionOverall[]> {
+export async function fetchRotationChampions(): Promise<ChampionOverall[]> {
   const res = await fetch(`${API_BASE_URL}/api/rotation`, {
     cache: "no-store",
   });
