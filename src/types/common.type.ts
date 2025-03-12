@@ -7,3 +7,8 @@ export type ImageInfo = {
   w: number;
   h: number;
 };
+
+export type Version<T> = {
+  data: T;
+  version: string;
+};
