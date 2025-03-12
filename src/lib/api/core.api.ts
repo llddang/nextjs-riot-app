@@ -19,7 +19,6 @@ export async function fetchAPIVersion(): Promise<string> {
   const versionResponse = await fetch(
     "https://ddragon.leagueoflegends.com/api/versions.json",
     {
-      cache: "force-cache",
       next: {
         revalidate: 86400,
       },
@@ -47,7 +46,6 @@ export async function fetchAllChampions(
   const championsResponse = await fetch(
     `https://ddragon.leagueoflegends.com/cdn/${version}/data/ko_KR/champion.json`,
     {
-      cache: "force-cache",
       next: {
         revalidate: 86400,
       },
