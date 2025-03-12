@@ -1,3 +1,4 @@
+import ChampionDetailBackground from "@/components/features/champion-detail-background";
 import { fetchChampionByIdWithVersion } from "@/lib/api/server.api";
 import Image from "next/image";
 
@@ -19,15 +20,7 @@ export default async function ChampionDetailPage({
     await fetchChampionByIdWithVersion(params.id);
   return (
     <main className="relative mt-14 h-[calc(100vh-56px)]">
-      <div
-        className="absolute -z-10 h-full w-full !bg-cover !bg-center"
-        style={{
-          background: `
-            linear-gradient(to top, rgba(0, 0, 0, 1) 0%, rgba(0, 0, 0, 0) 50%),
-            url('https://ddragon.leagueoflegends.com/cdn/img/champion/splash/${champion.id}_0.jpg') no-repeat top center / contain
-          `,
-        }}
-      />
+      <ChampionDetailBackground id={champion.id} />
       <div className="flex h-full flex-col justify-end gap-4 p-6">
         <section className="flex flex-col gap-6 font-riot md:flex-row md:gap-10">
           <div className="w-fit flex-shrink-0 text-gold mix-blend-color-dodge">
