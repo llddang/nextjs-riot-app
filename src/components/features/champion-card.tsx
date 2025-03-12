@@ -5,10 +5,11 @@ import { ChampionOverall } from "@/types/champion.type";
 
 type ChampionCardProps = {
   champion: ChampionOverall;
+  apiVersion: string;
 };
 
 export default React.memo(ChampionCard);
-function ChampionCard({ champion }: ChampionCardProps) {
+function ChampionCard({ champion, apiVersion }: ChampionCardProps) {
   return (
     <li className="transition-[transform] duration-100 ease-in-out hover:scale-110 hover:shadow-lg hover:shadow-gold">
       <Link
@@ -16,7 +17,7 @@ function ChampionCard({ champion }: ChampionCardProps) {
         className="relative block h-20 w-20 md:h-24 md:w-24"
       >
         <Image
-          src={`https://ddragon.leagueoflegends.com/cdn/15.5.1/img/champion/${champion.image.full}`}
+          src={`https://ddragon.leagueoflegends.com/cdn/${apiVersion}/img/champion/${champion.image.full}`}
           fill
           sizes="20vw"
           alt={champion.name}
