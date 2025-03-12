@@ -114,7 +114,7 @@ export async function fetchAllItems(
  * @returns {Promise<number[]>} 챔피언들의 key 배열
  * @throws {Error} API 요청 실패 시 오류가 발생할 수 있습니다.
  */
-export async function fetchRotationChampions(): Promise<number[]> {
+export async function fetchRotationChampionIds(): Promise<number[]> {
   const rotationResponse = await fetch(
     "https://kr.api.riotgames.com/lol/platform/v3/champion-rotations",
     {
