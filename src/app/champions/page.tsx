@@ -6,7 +6,7 @@ export default async function ChampionsPage() {
 
   return (
     <main className="mx-auto mt-16 max-w-5xl p-10 md:px-16">
-      <h1 className="text-yellow-light mb-4 text-center font-riot text-4xl font-bold lg:text-6xl">
+      <h1 className="text-yellow-light mb-4 text-center font-riot text-4xl font-bold md:text-6xl">
         Champion List
       </h1>
       <ul className="mt-10 grid grid-cols-[repeat(auto-fit,_minmax(80px,_1fr))] justify-items-center gap-2 md:grid-cols-[repeat(auto-fit,_minmax(90px,_1fr))] md:gap-4">
