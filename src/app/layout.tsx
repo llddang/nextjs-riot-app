@@ -31,6 +31,7 @@ export default function RootLayout({
         className={`${pretendard.className} ${riot.variable} w-full overflow-x-hidden antialiased`}
       >
         <Header />
+        <div className="mt-14" />
         {children}
       </body>
     </html>
