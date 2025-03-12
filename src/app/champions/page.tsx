@@ -1,13 +1,11 @@
 import ChampionCard from "@/components/features/champion-card";
 import { fetchAllChampionsWithVersion } from "@/lib/api/server.api";
-import Image from "next/image";
-import Link from "next/link";
 
 export default async function ChampionsPage() {
   const champions = await fetchAllChampionsWithVersion();
 
   return (
-    <main className="mx-auto max-w-5xl p-10 md:px-16">
+    <main className="mx-auto mt-16 max-w-5xl p-10 md:px-16">
       <h1 className="text-yellow-light mb-4 text-center font-riot text-4xl font-bold lg:text-6xl">
         Champion List
       </h1>
