@@ -10,7 +10,7 @@ export default async function ChampionsPage() {
       <h1 className="text-yellow-light mb-4 text-center font-riot text-4xl font-bold md:text-6xl">
         Champion List
       </h1>
-      <ul className="mt-10 grid grid-cols-[repeat(auto-fit,_minmax(80px,_1fr))] justify-items-center gap-2 md:grid-cols-[repeat(auto-fit,_minmax(90px,_1fr))] md:gap-4">
+      <ul className="mt-10 grid grid-cols-[repeat(auto-fit,_minmax(80px,_1fr))] justify-items-center gap-2 md:grid-cols-[repeat(auto-fit,_minmax(96px,_1fr))] md:gap-4">
         {champions.map((champion) => (
           <ChampionCard
             key={champion.id}
