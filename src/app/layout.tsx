@@ -9,8 +9,6 @@ const pretendard = localFont({
 
 const riot = localFont({
   src: "../public/fonts/RiotRegular.woff2",
-  weight: "400",
-  style: "normal",
   variable: "--font-riot",
 });
 
