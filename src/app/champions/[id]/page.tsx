@@ -1,6 +1,6 @@
+import Image from "next/image";
 import ChampionDetailBackground from "@/components/features/champion-detail-background";
 import { fetchChampionByIdWithVersion } from "@/lib/api/server.api";
-import Image from "next/image";
 
 export async function generateMetadata({ params }: ChampionDetailPageProps) {
   const { data: champion } = await fetchChampionByIdWithVersion(params.id);
