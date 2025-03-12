@@ -1,141 +1,57 @@
-import { RIOT_API_KEY } from "@/constants/env.constant";
+"use server";
+
 import {
-  Champion,
-  ChampionList,
-  ChampionOverall,
-  ChampionOverallList,
-} from "@/types/champion.type";
-import { categorizeError, ErrorResponse } from "@/types/error.type";
-import { Item, ItemList } from "@/types/item.type";
-import { RotationChampion } from "@/types/rotation-champion.type";
+  fetchAllChampions,
+  fetchAllItems,
+  fetchAPIVersion,
+  fetchChampionById,
+} from "@/lib/api/core.api";
+import { Champion, ChampionOverall } from "@/types/champion.type";
+import { Item } from "@/types/item.type";
 
 /**
- * League of Legends Data Dragon API에서 최신 게임 버전을 가져옵니다.
+ * 최신 API 버전의 모든 챔피언 정보를 배열 형태로 가져옵니다.
  *
- * @returns {Promise<string>} 최신 League of Legends 게임 버전 (예: "15.5.1")
- *
+ * @returns {Promise<ChampionOverall[]>} 모든 챔피언 정보가 담긴 배열
  * @throws {Error} API 요청 실패 시 오류가 발생할 수 있습니다.
  */
-export async function getAPIVersion(): Promise<string> {
-  const versionResponse = await fetch(
-    "https://ddragon.leagueoflegends.com/api/versions.json",
-    {
-      cache: "force-cache",
-      next: {
-        revalidate: 86400,
-      },
-    },
-  );
-  if (!versionResponse.ok) {
-    throw categorizeError("AccessDenied", versionResponse.status);
-  }
-  const versions: string[] = await versionResponse.json();
-  const latestVersion = versions[0];
-  return latestVersion;
+export async function fetchAllChampionsWithVersion(): Promise<
+  ChampionOverall[]
+> {
+  const apiVersion = await fetchAPIVersion();
+  const champions = await fetchAllChampions(apiVersion);
+
+  return Object.values(champions);
 }
 
 /**
- * 특정 버전의 League of Legends 챔피언 전체 목록 데이터를 가져옵니다.
+ * 최신 API 버전에서 특정 ID의 챔피언 상세 정보를 가져옵니다.
  *
- * @param {string} version - 데이터를 가져올 게임 버전 (예: "15.5.1")
- * @returns {Promise<Record<string, ChampionOverall>>} 챔피언 ID를 키로 하는 챔피언 데이터 객체
- *
- * @throws {Error} API 요청 실패 시 오류가 발생할 수 있습니다.
+ * @param {string} id - 조회할 챔피언의 고유 ID (예: "Aatrox")
+ * @returns {Promise<Champion>} 해당 챔피언의 상세 정보
+ * @throws {Error} API 요청 실패 또는 챔피언을 찾을 수 없을 때 오류가 발생할 수 있습니다.
  */
-export async function getChampionList(
-  version: string,
-): Promise<Record<string, ChampionOverall>> {
-  const championsResponse = await fetch(
-    `https://ddragon.leagueoflegends.com/cdn/${version}/data/ko_KR/champion.json`,
-    {
-      cache: "force-cache",
-      next: {
-        revalidate: 86400,
-      },
-    },
-  );
-  if (!championsResponse.ok) {
-    throw categorizeError("AccessDenied", championsResponse.status);
-  }
-  const championsData: ChampionOverallList = await championsResponse.json();
-  return championsData.data;
-}
-
-/**
- * 특정 버전의 특정 League of Legends 챔피언의 상세 데이터를 가져옵니다.
- *
- * @param {string} version - 데이터를 가져올 게임 버전 (예: "15.5.1")
- * @param {string} id - 데이터를 가져올 챔피언 ID (예: "Aatrox")
- * @returns {Promise<Record<string, Champion>>} 챔피언 ID를 키로 하는 챔피언 데이터 객체
- *
- * @throws {Error} API 요청 실패 시 오류가 발생할 수 있습니다.
- */
-export async function getChampionById(
-  version: string,
+export async function fetchChampionByIdWithVersion(
   id: string,
-): Promise<Record<string, Champion>> {
-  const championsResponse = await fetch(
-    `https://ddragon.leagueoflegends.com/cdn/${version}/data/ko_KR/champion/${id}.json`,
-    {
-      cache: "no-store",
-    },
-  );
-  if (!championsResponse.ok) {
-    throw categorizeError("AccessDenied", championsResponse.status);
-  }
-  const championsData: ChampionList = await championsResponse.json();
-  return championsData.data;
+): Promise<Champion> {
+  const apiVersion = await fetchAPIVersion();
+  const champions = await fetchChampionById(apiVersion, id);
+
+  const champion = Object.values(champions)[0];
+
+  return champion;
 }
 
 /**
- * 특정 버전의 League of Legends 아이템 전체 목록 데이터를 가져옵니다.
+ * 최신 API 버전의 모든 아이템 정보를 배열 형태로 가져옵니다.
+ * 각 아이템 객체에는 고유 ID가 포함됩니다.
  *
- * @param {string} version - 데이터를 가져올 게임 버전 (예: "15.5.1")
- * @returns {Promise<Record<string, Item>>} 아이템 ID를 키로 하는 아이템 데이터 객체
- *
+ * @returns {Promise<Item[]>} 모든 아이템 정보가 담긴 배열 (각 아이템에 id 필드 포함)
  * @throws {Error} API 요청 실패 시 오류가 발생할 수 있습니다.
  */
-export async function getItemList(
-  version: string,
-): Promise<Record<string, Item>> {
-  const championsResponse = await fetch(
-    `https://ddragon.leagueoflegends.com/cdn/${version}/data/ko_KR/item.json`,
-    {
-      cache: "force-cache",
-    },
-  );
-  if (!championsResponse.ok) {
-    throw categorizeError("AccessDenied", championsResponse.status);
-  }
-  const championsData: ItemList = await championsResponse.json();
-  return championsData.data;
-}
+export async function fetchAllItemsWithVersion(): Promise<Item[]> {
+  const apiVersion = await fetchAPIVersion();
+  const items = await fetchAllItems(apiVersion);
 
-/**
- * 무료로 사용할 수 있는 챔피언들의 key들을 가져옵니다.
- *
- * @returns {Promise<number[]>} 챔피언들의 key 배열
- *
- * @throws {Error} API 요청 실패 시 오류가 발생할 수 있습니다.
- */
-export async function getRotationChampions(): Promise<number[]> {
-  const rotationResponse = await fetch(
-    "https://kr.api.riotgames.com/lol/platform/v3/champion-rotations",
-    {
-      cache: "no-store",
-      headers: {
-        "Content-Type": "application/json",
-        "X-Riot-Token": RIOT_API_KEY,
-      },
-    },
-  );
-  if (!rotationResponse.ok) {
-    const errorData: ErrorResponse = await rotationResponse.json();
-    throw categorizeError(
-      errorData.status.message,
-      errorData.status.status_code,
-    );
-  }
-  const rotationData: RotationChampion = await rotationResponse.json();
-  return rotationData.freeChampionIds;
+  return Object.entries(items).map(([id, item]) => ({ id, ...item }));
 }

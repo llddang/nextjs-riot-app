@@ -1,34 +1,16 @@
 import { API_BASE_URL } from "@/constants/env.constant";
+import { ChampionOverall } from "@/types/champion.type";
 
-export async function fetchAllChampion() {
-  const res = await fetch(`${API_BASE_URL}/api/champions`, {
-    cache: "force-cache",
-    next: { revalidate: 86400 },
-  });
-  const data = await res.json();
-  return data;
-}
-
-export async function fetchChampionById(id: string) {
-  const res = await fetch(`${API_BASE_URL}/api/champions/${id}`, {
-    cache: "no-store",
-  });
-  const data = await res.json();
-  return data;
-}
-
-export async function fetchAllItem() {
-  const res = await fetch(`${API_BASE_URL}/api/items`, {
-    cache: "force-cache",
-  });
-  const data = await res.json();
-  return data;
-}
-
-export async function fetchRotationChampion() {
+/**
+ * 무료로 사용할 수 있는 챔피언들의 목록을 가져옵니다.
+ *
+ * @returns {Promise<ChampionOverall[]>} 챔피언들의 key 배열
+ * @throws {Error} API 요청 실패 시 오류가 발생할 수 있습니다.
+ */
+export async function fetchRotationChampions(): Promise<ChampionOverall[]> {
   const res = await fetch(`${API_BASE_URL}/api/rotation`, {
     cache: "no-store",
   });
-  const data = await res.json();
+  const data: ChampionOverall[] = await res.json();
   return data;
 }
