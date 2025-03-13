@@ -22,7 +22,7 @@ export default function HomePage() {
         </p>
       </h1>
       <section>
-        <ul className="grid grid-cols-1 gap-4 text-2xl md:grid-cols-3">
+        <ul className="grid grid-cols-1 justify-items-center gap-4 text-2xl md:grid-cols-3">
           {navigation.map((nav) => (
             <li key={nav.href}>
               <Link href={nav.href} className="group space-y-4">
