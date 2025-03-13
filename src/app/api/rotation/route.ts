@@ -1,14 +1,14 @@
 import {
   fetchAllChampions,
   fetchAPIVersion,
-  fetchRotationChampions,
+  fetchRotationChampionIds,
 } from "@/lib/api/core.api";
 import { ChampionOverall } from "@/types/champion.type";
 import { HttpError } from "@/types/error.type";
 
 export async function GET() {
   try {
-    const freeChampionIds = await fetchRotationChampions();
+    const freeChampionIds = await fetchRotationChampionIds();
 
     const version = await fetchAPIVersion();
     const champions = await fetchAllChampions(version);
@@ -17,7 +17,7 @@ export async function GET() {
       (champion) => freeChampionIds.includes(Number(champion.key)),
     );
 
-    const responseData = freeChampions;
+    const responseData = { version, data: freeChampions };
 
     return new Response(JSON.stringify(responseData), {
       headers: {
