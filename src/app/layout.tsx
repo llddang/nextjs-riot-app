@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import localFont from "next/font/local";
 import "./globals.css";
 import Header from "@/components/layouts/header/header";
+import { ToastContainer } from "react-toastify";
 
 const pretendard = localFont({
   src: "../public/fonts/PretendardVariable.woff2",
@@ -30,6 +31,7 @@ export default function RootLayout({
       >
         <Header />
         {children}
+        <ToastContainer />
       </body>
     </html>
   );
