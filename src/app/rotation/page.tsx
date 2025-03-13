@@ -1,10 +1,11 @@
 "use client";
 
+import { useEffect, useState } from "react";
 import ChampionCard from "@/components/features/champion-card";
 import { fetchRotationChampions } from "@/lib/api/client.api";
 import { ChampionOverall } from "@/types/champion.type";
-import { notFound } from "next/navigation";
-import { useEffect, useState } from "react";
+import { toast } from "react-toastify";
+import { HttpError } from "@/types/error.type";
 
 export default function RotatePage() {
   const [champions, setChampions] = useState<ChampionOverall[]>([]);
@@ -12,11 +13,18 @@ export default function RotatePage() {
 
   useEffect(() => {
     fetchRotationChampions()
-      .then(({ version, data }) => {
+      .then(({ data, version }) => {
         setChampions(data);
         setApiVersion(version);
       })
-      .catch(() => notFound());
+      .catch((e) => {
+        if (
+          e instanceof HttpError &&
+          (e.statusCode === 403 || e.statusCode === 401)
+        )
+          toast.error("유효하지 않은 API 키입니다.");
+        else toast.error("오늘의 무료 챔피언을 불러오는데 실패했습니다.");
+      });
   }, []);
 
   return (
