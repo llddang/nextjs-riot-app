@@ -5,11 +5,11 @@ import Header from "@/components/layouts/header/header";
 import { ToastContainer } from "react-toastify";
 
 const pretendard = localFont({
-  src: "../public/fonts/PretendardVariable.woff2",
+  src: "../../public/fonts/PretendardVariable.woff2",
 });
 
 const riot = localFont({
-  src: "../public/fonts/RiotRegular.woff2",
+  src: "../../public/fonts/RiotRegular.woff2",
   variable: "--font-riot",
 });
 
