@@ -3,6 +3,7 @@ import localFont from "next/font/local";
 import "./globals.css";
 import Header from "@/components/layouts/header/header";
 import { ToastContainer } from "react-toastify";
+import Providers from "@/config/providers";
 
 const pretendard = localFont({
   src: "../../public/fonts/PretendardVariable.woff2",
@@ -29,9 +30,11 @@ export default function RootLayout({
       <body
         className={`${pretendard.className} ${riot.variable} w-full overflow-x-hidden antialiased`}
       >
-        <Header />
-        {children}
-        <ToastContainer />
+        <Providers>
+          <Header />
+          {children}
+          <ToastContainer />
+        </Providers>
       </body>
     </html>
   );
