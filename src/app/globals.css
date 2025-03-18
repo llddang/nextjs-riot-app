@@ -42,17 +42,40 @@ body {
 
 @layer components {
   .hover-underline {
-    @apply inline-block align-middle relative transform shadow-sm;
+    @apply relative inline-block transform align-middle shadow-sm;
   }
 
   .hover-underline::before {
     content: "";
-    @apply absolute z-10 left-[51%] right-[51%] bottom-0 bg-red h-[3px] transition-[left,right] duration-300 ease-out;
+    @apply absolute bottom-0 left-[51%] right-[51%] z-10 h-[3px] bg-red transition-[left,right] duration-300 ease-out;
   }
 
   .hover-underline:hover::before,
   .hover-underline:focus::before,
   .hover-underline:active::before {
     @apply left-0 right-0;
+  }
+}
+
+@layer components {
+  .loader {
+    width: 60px;
+    margin: auto;
+    margin-top: 10rem;
+    aspect-ratio: 4;
+    --c: #000 90%, #0000;
+    background:
+      radial-gradient(circle closest-side at left 6px top 50%, var(--c)),
+      radial-gradient(circle closest-side, var(--c)),
+      radial-gradient(circle closest-side at right 6px top 50%, var(--c));
+    background-size: 100% 100%;
+    background-repeat: no-repeat;
+    animation: l4 1s infinite alternate;
+  }
+  @keyframes l4 {
+    to {
+      width: 25px;
+      aspect-ratio: 1;
+    }
   }
 }
