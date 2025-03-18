@@ -1,6 +1,6 @@
 "use client";
 
-import useMediaQuery from "@/lib/hooks/useMediaQuery.hook";
+import useMediaQuery from "@/lib/hooks/use-media-query.hook";
 
 type ChampionDetailBackgroundProps = { id: string };
 export default function ChampionDetailBackground({
