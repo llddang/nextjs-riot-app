@@ -2,7 +2,6 @@
 
 import { HttpError } from "@/types/error.type";
 import Link from "next/link";
-import { toast } from "react-toastify";
 
 type ErrorProps = {
   error: Error & { digest?: string };
