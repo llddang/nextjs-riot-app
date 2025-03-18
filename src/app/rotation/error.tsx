@@ -1,6 +1,8 @@
 "use client";
 
+import { HttpError } from "@/types/error.type";
 import Link from "next/link";
+import { toast } from "react-toastify";
 
 type ErrorProps = {
   error: Error & { digest?: string };
@@ -10,7 +12,7 @@ export default function Error({ error, reset }: ErrorProps) {
   return (
     <div className="text-primary flex h-screen w-full flex-col items-center justify-center">
       <div className="mb-2 text-4xl font-bold">이런!</div>
-      <div className="mb-4">알 수 없는 오류가 발생했습니다.</div>
+      <div className="mb-4">{getRotationChampionErrorMessage(error)}</div>
 
       <div className="mt-4 flex flex-col items-center gap-2">
         <button
@@ -29,4 +31,14 @@ export default function Error({ error, reset }: ErrorProps) {
       </div>
     </div>
   );
+}
+
+function getRotationChampionErrorMessage(error: Error) {
+  if (
+    error instanceof HttpError &&
+    (error.statusCode === 403 || error.statusCode === 401)
+  ) {
+    return "유효하지 않은 API 키입니다.";
+  }
+  return "오늘의 무료 챔피언을 불러오는데 실패했습니다.";
 }
