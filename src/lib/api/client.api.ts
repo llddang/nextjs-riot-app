@@ -1,4 +1,3 @@
-import { API_BASE_URL } from "@/constants/env.constant";
 import { ChampionOverall } from "@/types/champion.type";
 import { Version } from "@/types/common.type";
 import { HttpError } from "@/types/error.type";
@@ -12,7 +11,7 @@ import { HttpError } from "@/types/error.type";
 export async function fetchRotationChampions(): Promise<
   Version<ChampionOverall[]>
 > {
-  const res = await fetch(`${API_BASE_URL}/api/rotation`, {
+  const res = await fetch(`api/rotation`, {
     cache: "no-store",
   });
   if (!res.ok) {
